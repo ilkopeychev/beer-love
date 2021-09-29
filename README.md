@@ -27,6 +27,11 @@ https://punkapi.com/
 - [Font Awesome](https://fontawesome.com/) - a resource for icons
 - useSound hook
 - [Ethers.js - ethers.io](Ethers.js - ethers.io) - a JavaScript library that allows developers to interact with the Ethereum blockchain
+- 
+## How to start the project
+open terminal in beer-love directory and run
+-npm i
+-npm start
 
 ## Author
 * **Ilko Peychev** - *React Developer*
