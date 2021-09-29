@@ -16,8 +16,8 @@ export const AppContext = ({ children }) => {
   const [playBeerSound] = useSound(beerSound);
 
   const [wallet, setWallet] = useState(
-    localStorage.getItem("StorageWallet")
-      ? JSON.parse(localStorage.getItem("StorageWallet"))
+    localStorage.getItem("StorrageWallet")
+      ? JSON.parse(localStorage.getItem("StorrageWallet"))
       : "no wallet"
   );
 

@@ -27,24 +27,7 @@ const HomePage = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const listener = (event) => {
-  //     if (event.code === "Enter") {
-  //       console.log("Enter key was pressed. Run your function.");
-  //       event.preventDefault();
-  //       console.log("searchTerm", searchTerm);
-  //       searchTerm === "" ? fetchHomeBeers() : fetchHomeBeers(searchTerm);
-  //     }
-  //   };
-  //   document.addEventListener("keydown", listener);
-  //   return () => {
-  //     document.removeEventListener("keydown", listener);
-  //   };
-  // }, [searchTerm]);
-
   const searchBeerHandler = useCallback(() => {
-    console.log("clicked");
-    console.log("searcht term", searchTerm === "");
     searchTerm === "" ? fetchHomeBeers() : fetchHomeBeers(searchTerm);
   }, [searchTerm, fetchHomeBeers]);
 
@@ -53,6 +36,7 @@ const HomePage = () => {
       <div className="home-search">
         <input
           style={styleDisabled}
+          disabled={wallet === "no wallet"}
           type="text"
           placeholder="Search for beer..."
           value={searchTerm}
@@ -73,7 +57,7 @@ const HomePage = () => {
           </button>
         ) : null}
       </div>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1 }} style={styleDisabled}>
         <Grid
           container
           columns={{ xs: 4, sm: 8, md: 12 }}
