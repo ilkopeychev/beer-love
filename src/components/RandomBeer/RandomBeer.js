@@ -7,7 +7,6 @@ const RandomBeer = () => {
 
   useEffect(() => {
     fetchRandomBeer();
-    console.log(randomBeer);
   }, [fetchRandomBeer]);
 
   return (
@@ -15,7 +14,11 @@ const RandomBeer = () => {
       {randomBeer.map((beer) => (
         <div key={beer.id} className="random-grid">
           <div className="random-grid-controls">
-            <img src={beer.image_url} alt="#" onClick={playBeerSound} />
+            {beer.image_url?.length > 0 ? (
+              <img src={beer.image_url} alt="#" onClick={playBeerSound} />
+            ) : (
+              <div style={{ color: "black" }}>No image for current BEER</div>
+            )}
             <button onClick={fetchRandomBeer}> Generate Another Beer</button>
           </div>
 

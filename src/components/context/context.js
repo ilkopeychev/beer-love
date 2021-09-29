@@ -4,6 +4,8 @@ import axios from "axios";
 import useSound from "use-sound";
 import beerSound from "../../sound/openBeer.mp3";
 
+import { ethers } from "ethers";
+
 export const myContext = createContext();
 
 export const AppContext = ({ children }) => {
@@ -13,11 +15,31 @@ export const AppContext = ({ children }) => {
 
   const [playBeerSound] = useSound(beerSound);
 
-  const [favouriteBeers, setFavouriteBeers] = useState(
-    localStorage.getItem("Favourites")
-      ? JSON.parse(localStorage.getItem("Favourites"))
-      : []
+  const [wallet, setWallet] = useState(
+    localStorage.getItem("StorageWallet")
+      ? JSON.parse(localStorage.getItem("StorageWallet"))
+      : "no wallet"
   );
+
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const styleDisabled =
+    wallet === "no wallet" ? { pointerEvents: "none", opacity: "0.4" } : {};
+  const connectWallet = async () => {
+    const res = await provider.send("eth_requestAccounts", []);
+    const walletNameFromProvider = res[0];
+    setWallet(walletNameFromProvider);
+  };
+
+  const [favouriteSetBeers, setFavouriteSetBeers] = useState(() => {
+    const dateFromLocalStorage = JSON.parse(
+      localStorage.getItem("FavouritesSet")
+    );
+    const newDataAsSet = new Set();
+    const transformArrayToSet = dateFromLocalStorage
+      ? dateFromLocalStorage.forEach((item) => newDataAsSet.add(item))
+      : new Set();
+    return newDataAsSet || transformArrayToSet;
+  });
 
   const fetchHomeBeers = useCallback((searchTerm) => {
     axios
@@ -25,51 +47,59 @@ export const AppContext = ({ children }) => {
         params: { beer_name: searchTerm },
       })
       .then((res) => {
-        console.log(res.data);
         setBeers(res.data);
       });
   }, []);
 
   const fetchRandomBeer = useCallback(() => {
     axios.get(`https://api.punkapi.com/v2/beers/random`).then((res) => {
-      console.log("res DATA", res.data[0]);
       setRandomBeer(res.data);
     });
   }, []);
 
-  const addFavourite = async (id) => {
+  const addFavouriteSet = async (id) => {
+    const newSet = new Set();
     const beer = beers.find((item) => item.id === id);
-
-    let favourites;
-
+    let favourites = [];
     beer.isFavourite = true;
 
-    favourites = [...favouriteBeers, beer];
+    favourites = Array.from(favouriteSetBeers);
+    favourites.push(beer);
 
-    setFavouriteBeers(favourites);
+    favourites.forEach((item) => newSet.add(item));
+    await setFavouriteSetBeers(newSet);
 
-    localStorage.setItem("Favourites", JSON.stringify(favourites));
+    // To store a Set you first need to use JSON.stringify, which will actually work on object, but to use the same on Set you have to first convert it to array.
+    // This is because data stored in the set is not stored as properties.
+
+    localStorage.setItem("FavouritesSet", JSON.stringify([...newSet]));
   };
 
-  const removeFavourite = async (id) => {
-    if (favouriteBeers?.lenght > 0) {
-      const beer = favouriteBeers.find((item) => item.id === id);
-      let favourites;
+  const removeFavouriteSet = async (id) => {
+    if (favouriteSetBeers?.size) {
+      const newSet = new Set(favouriteSetBeers);
+      newSet.forEach((item) => {
+        if (item.id === id) {
+          newSet.delete(item);
+        }
+      });
 
-      beer.isFavourite = false;
-
-      favourites = favouriteBeers.filter(
-        (favourite) => favourite.id !== beer.id
-      );
-      beer.isFavourite = false;
-      await setFavouriteBeers(favourites);
-      localStorage.setItem("Favourites", JSON.stringify(favourites));
+      await setFavouriteSetBeers(newSet);
+      localStorage.setItem("FavouritesSet", JSON.stringify([...newSet]));
     }
   };
 
   const checkIfFavourite = (id) => {
-    console.log("FAVOURITE", favouriteBeers);
-    const isFavourite = favouriteBeers.find((favourite) => favourite.id === id);
+    const favourites = Array.from(favouriteSetBeers);
+    const beer = favourites.find((item) => item.id === id);
+
+    let isFavourite;
+    if (!Array.isArray(favouriteSetBeers)) {
+      isFavourite = favouriteSetBeers.has(beer);
+    } else {
+      isFavourite = favouriteSetBeers.indexOf(beer) !== -1;
+    }
+
     if (isFavourite) return true;
     return false;
   };
@@ -81,11 +111,14 @@ export const AppContext = ({ children }) => {
         beers,
         fetchRandomBeer,
         randomBeer,
-        addFavourite,
-        favouriteBeers,
+        addFavouriteSet,
         checkIfFavourite,
-        removeFavourite,
+        removeFavouriteSet,
         playBeerSound,
+        favouriteSetBeers,
+        connectWallet,
+        wallet,
+        styleDisabled,
       }}
     >
       {children}

@@ -1,11 +1,15 @@
 .container {
   margin: 1.5rem 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
 }
 
 .card {
   margin-bottom: 1.5rem;
   padding: 1rem;
-  border: 3px solid #14bdac;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   border-radius: 0.5rem;
   background-color: #e9e9e9;
   position: relative;
@@ -29,8 +33,8 @@
 
 .fa-star {
   position: absolute;
-  top: 5%;
-  right: 15%;
+  top: 6%;
+  right: 3%;
   font-size: 2rem;
   color: #47d1af;
   cursor: pointer;
@@ -44,58 +48,58 @@
   padding: 3rem 0;
 }
 
-@media (min-width: 411px) {
-  .container {
-    margin: 1.5rem 2rem;
-  }
+// @media (min-width: 411px) {
+//   .container {
+//     margin: 1.5rem 2rem;
+//   }
 
-  .card {
-    display: flex;
-  }
+//   .card {
+//     display: flex;
+//   }
 
-  .card__text--sm {
-    text-align: center;
-    margin-top: 0.5rem;
-  }
+//   .card__text--sm {
+//     text-align: center;
+//     margin-top: 0.5rem;
+//   }
 
-  .fa-star {
-    font-size: 1rem;
-    top: 3%;
-    right: 3%;
-  }
-}
+//   .fa-star {
+//     font-size: 1rem;
+//     top: 3%;
+//     right: 3%;
+//   }
+// }
 
-@media (min-width: 768px) {
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin-bottom: 0;
-  }
+// @media (min-width: 768px) {
+//   .container {
+//     display: flex;
+//     flex-wrap: wrap;
+//     justify-content: space-between;
+//     margin-bottom: 0;
+//   }
 
-  .card {
-    flex-basis: 48%;
-    max-width: 575px;
-  }
+//   .card {
+//     flex-basis: 48%;
+//     max-width: 575px;
+//   }
 
-  .info {
-    flex-basis: 100%;
-    font-size: 2rem;
-  }
-}
+//   .info {
+//     flex-basis: 100%;
+//     font-size: 2rem;
+//   }
+// }
 
-@media (min-width: 1358px) {
-  .container {
-    justify-content: space-around;
-    margin: 3rem 2rem;
-  }
+// @media (min-width: 1358px) {
+//   .container {
+//     justify-content: space-around;
+//     margin: 3rem 2rem;
+//   }
 
-  .card {
-    padding-right: 2rem;
-  }
+//   .card {
+//     padding-right: 2rem;
+//   }
 
-  .fa-star {
-    font-size: 2rem;
-    top: 5%;
-  }
-}
+//   .fa-star {
+//     font-size: 2rem;
+//     top: 5%;
+//   }
+// }

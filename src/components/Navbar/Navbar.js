@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import "./Navbar.scss";
+import { myContext } from "../context/context";
 const Navbar = () => {
   const activeStyle = { color: "white", fontSize: "22px" };
+
+  const { wallet } = useContext(myContext);
   return (
-    <div className="navbar">
+    <div
+      className="navbar"
+      style={
+        wallet === "no wallet" ? { pointerEvents: "none", opacity: "0.4" } : {}
+      }
+    >
       <div className="navbar-heading">
         <h1>Beans Love Beers</h1>
       </div>
