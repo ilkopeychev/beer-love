@@ -11,9 +11,9 @@ const HomePage = () => {
   const { fetchHomeBeers, beers, wallet, connectWallet, styleDisabled } =
     useContext(myContext);
 
-  // dissabled style for wallet
-  // const styleDisabled =
-  //   wallet === "no wallet" ? { pointerEvents: "none", opacity: "0.4" } : {};
+  const checkForWallet = () => {
+    console.log(wallet);
+  };
   useEffect(() => {
     fetchHomeBeers();
   }, []);
@@ -57,7 +57,7 @@ const HomePage = () => {
           </button>
         ) : null}
       </div>
-      <Box sx={{ flexGrow: 1 }} style={styleDisabled}>
+      <Box sx={{ flexGrow: 1 }} className="homePageBox" style={styleDisabled}>
         <Grid
           container
           columns={{ xs: 4, sm: 8, md: 12 }}

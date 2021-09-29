@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import RenderBeerList from "../RenderBeerList/RenderBeerList";
 import { myContext } from "../context/context";
 import "../HomePage/HomePage.scss";
+import { Grid, Box } from "@mui/material";
 
 const Favourites = () => {
   const { favouriteSetBeers } = useContext(myContext);
@@ -12,7 +13,17 @@ const Favourites = () => {
     <p className="info">You have not added any beers to your Favourites yet!</p>
   );
 
-  return <div className="container">{beerList}</div>;
+  return (
+    <Box sx={{ flexGrow: 1 }} className="homePageBox">
+      <Grid
+        container
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        className="homePageContainer"
+      >
+        <div className="container">{beerList}</div>
+      </Grid>
+    </Box>
+  );
 };
 
 export default Favourites;

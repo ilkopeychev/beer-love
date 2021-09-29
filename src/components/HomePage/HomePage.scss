@@ -1,20 +1,23 @@
-.homePageContainer {
-  margin: 0px !important;
-  width: 100% !important;
+.homePageBox {
+  width: 100%;
+  .homePageContainer {
+    margin: 0px !important;
+    width: 100% !important;
 
-  .beer-card {
-    // margin: 0.7rem;
-    padding: 10px;
-    position: relative;
-    display: flex;
-    .beer-card-children {
-      width: 100%;
+    .beer-card {
+      // margin: 0.7rem;
+      padding: 10px;
+      position: relative;
       display: flex;
-      padding: 1rem;
-      box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
-        rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
-      border-radius: 0.5rem;
-      background-color: #e9e9e9;
+      .beer-card-children {
+        width: 100%;
+        display: flex;
+        padding: 1rem;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+          rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+        border-radius: 0.5rem;
+        background-color: #e9e9e9;
+      }
     }
   }
 }
@@ -68,6 +71,6 @@
   }
 }
 
-// .container {
-//   margin: 1.5rem 1rem;
-// }
+.container {
+  width: 100%;
+}

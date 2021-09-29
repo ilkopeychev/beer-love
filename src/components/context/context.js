@@ -15,15 +15,28 @@ export const AppContext = ({ children }) => {
 
   const [playBeerSound] = useSound(beerSound);
 
-  const [wallet, setWallet] = useState(
-    localStorage.getItem("StorrageWallet")
-      ? JSON.parse(localStorage.getItem("StorrageWallet"))
-      : "no wallet"
-  );
+  // const [favouriteSetBeers, setFavouriteSetBeers] = useState(() => {
+  //   const dateFromLocalStorage = JSON.parse(
+  //     localStorage.getItem("FavouritesSet")
+  //   );
+  //   const newDataAsSet = new Set();
+  //   const transformArrayToSet = dateFromLocalStorage
+  //     ? dateFromLocalStorage.forEach((item) => newDataAsSet.add(item))
+  //     : new Set();
+  //   return newDataAsSet || transformArrayToSet;
+  // });
+  const [wallet, setWallet] = useState(() => {
+    const walletStateFromStorrage = localStorage.getItem("StorrageWallet");
 
+    const newWalletStateFromStorrage = walletStateFromStorrage
+      ? walletStateFromStorrage
+      : "no wallet";
+    return newWalletStateFromStorrage;
+  });
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const styleDisabled =
     wallet === "no wallet" ? { pointerEvents: "none", opacity: "0.4" } : {};
+  console.log(styleDisabled);
   const connectWallet = async () => {
     const res = await provider.send("eth_requestAccounts", []);
     const walletNameFromProvider = res[0];

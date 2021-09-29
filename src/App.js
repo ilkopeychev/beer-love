@@ -8,6 +8,7 @@ import Favourites from "./components/Favourites/Favourites";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
+  console.log("rerender");
   return (
     <div className="App">
       <Router>
