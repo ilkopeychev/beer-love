@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./RenderBeerList.scss";
 import { myContext } from "../context/context";
 import { AiOutlineStar, AiFillStar } from "react-icons/ai";
@@ -13,11 +13,13 @@ function RenderBeerList(props) {
     wallet,
   } = useContext(myContext);
 
-  if (wallet === "no wallet") {
-    localStorage.setItem("StorageWallet", JSON.stringify("no wallet"));
-  } else {
-    localStorage.setItem("StorageWallet", wallet);
-  }
+  useEffect(() => {
+    if (wallet === "no wallet") {
+      localStorage.setItem("StorageWallet", JSON.stringify("no wallet"));
+    } else {
+      localStorage.setItem("StorageWallet", wallet);
+    }
+  }, [wallet]);
 
   return props.beers.map((beer) => (
     <Grid

@@ -46,7 +46,7 @@ const HomePage = () => {
         >
           Search Beer
         </button>
-        {wallet === "no wallet" ? (
+        {wallet === "no wallet" || wallet === '"no wallet"' ? (
           <button className="button" onClick={connectWallet}>
             Connect Wallet
           </button>
