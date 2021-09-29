@@ -10,18 +10,16 @@ function RenderBeerList(props) {
     checkIfFavourite,
     removeFavouriteSet,
     playBeerSound,
-    styleDisabled,
     wallet,
   } = useContext(myContext);
 
   if (wallet === "no wallet") {
     localStorage.setItem("StorageWallet", JSON.stringify("no wallet"));
   } else {
-    localStorage.setItem("StorageWallet", JSON.stringify(wallet));
+    localStorage.setItem("StorageWallet", wallet);
   }
 
   return props.beers.map((beer) => (
-    // <div className="card" style={styleDisabled} key={beer.id}>
     <Grid
       className="beer-card"
       item

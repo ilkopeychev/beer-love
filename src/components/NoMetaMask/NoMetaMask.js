@@ -6,7 +6,8 @@ function NoMetamask() {
       <div className="header">
         <br />
         <div className="redalert">
-          The Metamask browser extension has not been detected.
+          The Metamask browser extension has not been detected. Please enable
+          Metamask.
         </div>
       </div>
     </div>

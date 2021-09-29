@@ -15,18 +15,8 @@ export const AppContext = ({ children }) => {
 
   const [playBeerSound] = useSound(beerSound);
 
-  // const [favouriteSetBeers, setFavouriteSetBeers] = useState(() => {
-  //   const dateFromLocalStorage = JSON.parse(
-  //     localStorage.getItem("FavouritesSet")
-  //   );
-  //   const newDataAsSet = new Set();
-  //   const transformArrayToSet = dateFromLocalStorage
-  //     ? dateFromLocalStorage.forEach((item) => newDataAsSet.add(item))
-  //     : new Set();
-  //   return newDataAsSet || transformArrayToSet;
-  // });
   const [wallet, setWallet] = useState(() => {
-    const walletStateFromStorrage = localStorage.getItem("StorrageWallet");
+    const walletStateFromStorrage = localStorage.getItem("StorageWallet");
 
     const newWalletStateFromStorrage = walletStateFromStorrage
       ? walletStateFromStorrage
@@ -36,7 +26,7 @@ export const AppContext = ({ children }) => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const styleDisabled =
     wallet === "no wallet" ? { pointerEvents: "none", opacity: "0.4" } : {};
-  console.log(styleDisabled);
+
   const connectWallet = async () => {
     const res = await provider.send("eth_requestAccounts", []);
     const walletNameFromProvider = res[0];
@@ -81,9 +71,6 @@ export const AppContext = ({ children }) => {
 
     favourites.forEach((item) => newSet.add(item));
     await setFavouriteSetBeers(newSet);
-
-    // To store a Set you first need to use JSON.stringify, which will actually work on object, but to use the same on Set you have to first convert it to array.
-    // This is because data stored in the set is not stored as properties.
 
     localStorage.setItem("FavouritesSet", JSON.stringify([...newSet]));
   };

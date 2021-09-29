@@ -11,18 +11,13 @@ const HomePage = () => {
   const { fetchHomeBeers, beers, wallet, connectWallet, styleDisabled } =
     useContext(myContext);
 
-  const checkForWallet = () => {
-    console.log(wallet);
-  };
   useEffect(() => {
     fetchHomeBeers();
   }, []);
 
   const enterClickHandler = (event) => {
     if (event.code === "Enter") {
-      console.log("Enter key was pressed. Run your function.");
       event.preventDefault();
-      console.log("searchTerm", searchTerm);
       searchTerm === "" ? fetchHomeBeers() : fetchHomeBeers(searchTerm);
     }
   };
